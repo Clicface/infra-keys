@@ -1,0 +1,20 @@
+# Ne jamais inclure de clés privées !
+*.key
+*.pem
+*.ppk
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+
+# Fichiers potentiellement sensibles ou inutiles
+*.env
+*.bak
+*.old
+*.swp
+*.swo
+*.tmp
+
+# Dossiers optionnels
+secrets/
+private_keys/
