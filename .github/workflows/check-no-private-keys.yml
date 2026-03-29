@@ -10,7 +10,7 @@ on:
 jobs:
   check-private-keys:
     name: Détecter les clés privées SSH
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       # Étape 1 : Récupérer le code source
