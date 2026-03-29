@@ -5,6 +5,7 @@
 ## Structure
 
 - `keys/main-key0584.pub` : Clé publique principale actuelle.
+- `keys/backup-file.pub` : Clé publique de backup.
 - `keys/clicface-legacy.pub` : Ancienne clé publique (dépréciée).
 
 ## Exemple d'utilisation
@@ -47,7 +48,7 @@ chmod +x .git/hooks/pre-push
 
 ### 3. GitHub Actions workflow + branch ruleset (protection serveur)
 
-Le workflow `.github/workflows/check-no-private-keys.yml` s'exécute sur chaque push et pull request. Il analyse **tous les fichiers du dépôt** et fait échouer le pipeline si une clé privée est détectée. Il tourne sur un runner **self-hosted** (Debian/Ubuntu).
+Le workflow `.github/workflows/check-no-private-keys.yml` s'exécute sur chaque push et pull request. Il analyse **tous les fichiers du dépôt** et fait échouer le pipeline si une clé privée est détectée. Il tourne sur un runner **ubuntu-latest**.
 
 Pour que ce workflow **bloque réellement** les push/merge (et pas seulement signale le problème après coup), il faut configurer un **ruleset** sur GitHub :
 
