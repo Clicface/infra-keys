@@ -15,6 +15,10 @@ id_ed25519
 *.swo
 *.tmp
 
+# Dossiers IDE
+.qodo/
+.claude/
+
 # Dossiers optionnels
 secrets/
 private_keys/
