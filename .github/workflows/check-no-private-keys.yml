@@ -1,0 +1,47 @@
+name: Vérification absence de clés privées
+
+# Déclencheurs : push et pull_request sur toutes les branches
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+
+jobs:
+  check-private-keys:
+    name: Détecter les clés privées SSH
+    runs-on: self-hosted
+
+    steps:
+      # Étape 1 : Récupérer le code source
+      - name: Checkout du dépôt
+        uses: actions/checkout@v4
+
+      # Étape 2 : Parcourir tous les fichiers du dépôt et détecter les clés privées
+      - name: Rechercher des clés privées dans le dépôt
+        run: |
+          echo "🔍 Vérification de tous les fichiers du dépôt..."
+
+          # Patterns de headers de clés privées à détecter
+          PATTERN="-----BEGIN (OPENSSH|RSA|EC|DSA) PRIVATE KEY-----"
+
+          # Chercher dans tous les fichiers en excluant .git/
+          FOUND_FILES=$(grep -rlE "$PATTERN" --include='*' . --exclude-dir='.git' 2>/dev/null || true)
+
+          # Compter le nombre de fichiers vérifiés (hors .git/)
+          FILE_COUNT=$(find . -not -path './.git/*' -type f | wc -l)
+
+          if [ -n "$FOUND_FILES" ]; then
+            echo ""
+            echo "🚨 CLÉ PRIVÉE DÉTECTÉE dans les fichiers suivants :"
+            echo "$FOUND_FILES" | while read -r f; do
+              echo "  ❌ $f"
+            done
+            echo ""
+            echo "🚨 Push rejeté — clé privée présente dans le dépôt"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ Aucune clé privée détectée — dépôt sûr"
+          echo "📁 $FILE_COUNT fichiers vérifiés."
