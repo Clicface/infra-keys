@@ -4,7 +4,7 @@
 
 ## Structure
 
-- `keys/main-key0584.pub` : Clé publique principale actuelle.
+- `keys/ops1-key0584.pub` : Clé publique principale actuelle.
 - `keys/backup-file.pub` : Clé publique de backup.
 - `keys/clicface-legacy.pub` : Ancienne clé publique (dépréciée).
 
@@ -15,7 +15,7 @@ Dans un fichier `autoinstall.yaml` :
 ```yaml
 ssh:
   authorized-keys:
-    - https://raw.githubusercontent.com/Clicface/infra-keys/master/keys/main-key0584.pub
+    - https://raw.githubusercontent.com/Clicface/infra-keys/master/keys/ops1-key0584.pub
 ```
 
 ⚠️ Aucune clé privée n'est stockée dans ce dépôt.
